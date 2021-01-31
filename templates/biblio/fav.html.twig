@@ -1,0 +1,46 @@
+{% extends 'biblio.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('fav') }}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Vos favoris</h1>
+        <h2>Livres</h2>
+        <div class="category">
+        {% for favori in user.favoris %}
+            {% if favori.ouvrage.id is defined %}
+            <a href="{{path('biblioBook', {id : favori.ouvrage.id})}}" >
+            <div class="book">
+                <div class="book_image">
+                    <img src="{{ vich_uploader_asset(favori.ouvrage, 'couvertureFile') }}" alt="{{ favori.ouvrage.couverture }}" />
+                </div>
+                <div class="book_title">
+                    {{favori.ouvrage.titre}}
+                    <span class="author">
+                        {{favori.ouvrage.auteur}} <a href="{{path('biblioAddFavOuvrage', {id : favori.ouvrage.id})}}"><i class="far fa-heart"></i></a>
+                    </span>
+                </div>
+            </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <h2>Chapitre</h2>
+        <div class="category">
+        {% for favori in user.favoris %}
+            {% if favori.chapitre.id is defined %}
+            <a href="{{path('biblioBook', {id : favori.chapitre.ouvrage.id})}}" >
+            <div class="book">
+                <div class="book_title">
+                    {{favori.chapitre.titre}}
+                </div>
+            </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+        </div>
+    
+{% endblock %}

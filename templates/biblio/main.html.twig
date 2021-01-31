@@ -1,0 +1,33 @@
+{% extends 'biblio.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('biblio') }}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for collection in collections %}
+        <div class="collection">
+            <h2 class=title>{{collection.titre}} </h2>
+            <div class="books">
+                {% for ouvrage in collection.ouvrages %}
+                <a href="{{path('biblioBook', {id : ouvrage.id})}}" >
+                <div class="book">
+                    <div class="book_image">
+                        <img src="{{ vich_uploader_asset(ouvrage, 'couvertureFile') }}" alt="{{ ouvrage.couverture }}" />
+                    </div>
+                    <div class="book_title">
+                        {{ouvrage.titre}}
+                        <span class="author">
+                            {{ouvrage.auteur}} <a href="{{path('biblioAddFavOuvrage', {id : ouvrage.id})}}"><i class="far fa-heart"></i></a>
+                        </span>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

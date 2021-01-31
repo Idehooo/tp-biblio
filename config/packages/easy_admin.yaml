@@ -1,0 +1,7 @@
+# config/packages/easy_admin.yaml
+easy_admin:
+  entities:
+    Ouvrage:
+      form:
+        fields:
+          - { property: "couvertureFile", type: "vich_image" }

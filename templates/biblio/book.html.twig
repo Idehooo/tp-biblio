@@ -1,0 +1,29 @@
+{% extends 'biblio.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('book') }}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <header>
+            <h1>{{book.titre}}</h1>
+        </header>
+        {% for chapitre in book.chapitres %}
+            <div class="chapter">
+                <div class="chapter_title"><h3> {{chapitre.titre}} <a href="{{path('biblioAddFavChapitre', {id : chapitre.id})}}"> </h3> <i class="far fa-heart"></i></a> </div>
+                {% for section in chapitre.sections %}
+                    <section>
+                        <div class="text">
+                            {{section.texte}}
+                        </div>
+                        <div class="menu">
+                            <a href="{{path('biblioAddFavSection', {id : section.id})}}"><i class="far fa-heart"></i></a>
+                        </div>
+                    </section>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
